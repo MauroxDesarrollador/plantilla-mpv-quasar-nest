@@ -1,9 +1,14 @@
 const routes = [
   {
     path: '/',
+    component: () => import('pages/Login-1.vue')
+  },
+  {
+    path: '/admin',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {path: '', component: () => import('pages/Dashboard.vue')},
+      {path: 'users', component: () => import('pages/users/list.vue')},
       {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
       {path: '/Profile', component: () => import('pages/UserProfile.vue')},
       {path: '/Map', component: () => import('pages/Map.vue')},
@@ -44,10 +49,6 @@ const routes = [
   {
     path: '/Pricing',
     component: () => import('pages/Pricing.vue')
-  },
-  {
-    path: '/Login-1',
-    component: () => import('pages/Login-1.vue')
   },
   {
     path: '/Lock',

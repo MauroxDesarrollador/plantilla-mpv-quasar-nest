@@ -2,16 +2,14 @@
   <q-layout>
     <q-page-container>
       <q-page class="flex bg-image flex-center">
-        <q-card v-bind:style="$q.screen.lt.sm?{'width': '80%'}:{'width':'30%'}">
-          <q-card-section>
-            <q-avatar size="103px" class="absolute-center shadow-10">
-              <img src="profile.svg">
-            </q-avatar>
+        <q-card v-bind:style="$q.screen.lt.sm?{'width': '80%'}:{'width':'80%'}">
+          <q-card-section style="text-align:center">
+              <img src="logo.png">
           </q-card-section>
           <q-card-section>
             <div class="text-center q-pt-lg">
               <div class="col text-h6 ellipsis">
-                Log in
+                Inicio de sessión
               </div>
             </div>
           </q-card-section>
@@ -21,8 +19,8 @@
             >
               <q-input
                 filled
-                v-model="username"
-                label="Username"
+                v-model="email"
+                label="email"
                 lazy-rules
               />
 
@@ -35,8 +33,13 @@
 
               />
 
-              <div>
-                <q-btn label="Login" to="/" type="button" color="primary"/>
+              <div style="
+                display:flex;
+                justify-content:center;
+                gap:20px
+              ">
+                <q-btn class="boton-responsive" label="Login" to="/" type="button" color="secondary"/>
+                <q-btn class="boton-responsive" label="Recuperar" to="/" type="button" color="primary"/>
               </div>
             </q-form>
           </q-card-section>
@@ -53,7 +56,7 @@ import {ref} from 'vue'
 export default defineComponent({
   setup() {
     return {
-      username: ref('Pratik'),
+      email: ref('example@gmail.com'),
       password: ref('12345')
     }
   },
@@ -61,7 +64,6 @@ export default defineComponent({
 </script>
 
 <style>
-
 .bg-image {
   background-image: linear-gradient(135deg, #7028e4 0%, #e5b2ca 100%);
 }
