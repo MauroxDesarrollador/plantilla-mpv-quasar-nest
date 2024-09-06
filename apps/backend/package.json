@@ -18,13 +18,18 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migrate": "npx prisma generate && npx prisma migrate dev"
+    "migrate": "npx prisma generate && npx prisma migrate dev",
+    "seed": "node prisma/seed.js",
+    "studio": "npx prisma studio",
+    "install:dependencias": "npm install -g dotenv pm2",
+    "start:sigma-admin": "pm2 start npm --name 'sigma-proyecto' -- run dev && pm2 save"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@prisma/client": "^5.18.0",
+    "jsonwebtoken": "^9.0.2",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },

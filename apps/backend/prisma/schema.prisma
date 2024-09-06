@@ -1,93 +1,26 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Paciente {
-  id              Int        @id @default(autoincrement())
-  nombre          String
-  especie         String
-  raza            String
-  fechaNacimiento DateTime
-  propietario     Propietario @relation(fields: [propietarioId], references: [id])
-  propietarioId   Int
-  citas           Cita[]
-  tratamientos    Tratamiento[]
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  roles     Role[]   // Updated to use singular 'Role'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model Propietario {
-  id        Int        @id @default(autoincrement())
-  nombre    String
-  telefono  String
-  email     String     @unique
-  direccion String
-  pacientes Paciente[]
-
-  Factura Factura[]
-}
-
-model Veterinario {
-  id        Int        @id @default(autoincrement())
-  nombre    String
-  especialidad String
-  telefono  String
-  email     String     @unique
-  citas     Cita[]
-}
-
-model Cita {
-  id           Int        @id @default(autoincrement())
-  fecha        DateTime
-  descripcion  String
-  paciente     Paciente   @relation(fields: [pacienteId], references: [id])
-  pacienteId   Int
-  veterinario  Veterinario @relation(fields: [veterinarioId], references: [id])
-  veterinarioId Int
-  tratamiento  Tratamiento?
-}
-
-model Tratamiento {
-  id           Int        @id @default(autoincrement())
-  descripcion  String
-  costo        Float
-  paciente     Paciente   @relation(fields: [pacienteId], references: [id])
-  pacienteId   Int
-  cita         Cita       @relation(fields: [citaId], references: [id])
-  citaId       Int @unique
-
-  Factura Factura[]
-}
-
-model Factura {
-  id            Int        @id @default(autoincrement())
-  fechaEmision  DateTime
-  total         Float
-  tratamiento   Tratamiento @relation(fields: [tratamientoId], references: [id])
-  tratamientoId Int
-  propietario   Propietario @relation(fields: [propietarioId], references: [id])
-  propietarioId Int
-}
-
-model Usuario {
-  id          Int       @id @default(autoincrement())
-  nombre      String
-  email       String    @unique
-  password    String
-  rol         Rol       @relation(fields: [rolId], references: [id])
-  rolId       Int
-  creadoEn    DateTime  @default(now())
-  actualizadoEn DateTime @updatedAt
-}
-
-model Rol {
-  id          Int       @id @default(autoincrement())
-  nombre      String    @unique
-  usuarios    Usuario[]
+model Role { // Changed from Roles to Role
+  id        String   @id @default(uuid())
+  name      String
+  users     User[]   // Relationship back to User
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
